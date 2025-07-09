@@ -1,0 +1,30 @@
+import { Star } from "lucide-react";
+
+const ComicCard = () => {
+  return (
+    <>
+      <div className="relative min-h-[350px]">
+        <img
+          src="/poster.jpg"
+          alt="spiderman"
+          className="h-full object-cover absolute inset-0"
+        />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black/90 z-20" />
+        <div className="absolute bottom-2 left-0 z-30 space-y-2 w-full px-2">
+          <div>
+            <p className="text-white text-sm">Spider Man 3</p>
+            <p className="text-xs text-white">Jone Stone</p>
+          </div>
+          <div className="flex items-center justify-between">
+            <p className="text-xs text-white flex items-center gap-1">
+              Reviews <Star size={12} className="text-primary" /> 4.5
+            </p>
+            <p className="text-xs text-white">100 Comments</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default ComicCard;
