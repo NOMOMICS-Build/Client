@@ -3,11 +3,11 @@ import { Star } from "lucide-react";
 const ComicCard = () => {
   return (
     <>
-      <div className="relative min-h-[350px]">
+      <div className="relative md:min-h-[350px] min-h-[200px] w-full">
         <img
           src="/poster.jpg"
           alt="spiderman"
-          className="h-full object-cover absolute inset-0"
+          className="h-full w-full object-cover"
         />
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent to-black/90 z-20" />
         <div className="absolute bottom-2 left-0 z-30 space-y-2 w-full px-2">

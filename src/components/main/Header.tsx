@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <>
-      <header className="bg-secondary sticky top-0 z-50">
+      <header className="bg-secondary/90 backdrop-blur-sm sticky top-0 z-50">
         <nav className="main grid md:grid-cols-3 grid-cols-2 md:h-[95px] h-[70px] items-center">
           <a href="/">
             <img src="/logo.png" alt="logo" />

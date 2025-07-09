@@ -2,13 +2,13 @@ import { ComicList } from "../ui";
 
    
 
-const NewReleases = () => {
+const MostViewed = () => {
   return (
     <div className="main my-[100px] space-y-[24px]">
-      <h2 className="text-2xl font-bold uppercase">New Releases</h2>
+      <h2 className="text-2xl font-bold uppercase">Most Viewed</h2>
       <ComicList/>
     </div>
   );
 };
 
-export default NewReleases;
+export default MostViewed;
