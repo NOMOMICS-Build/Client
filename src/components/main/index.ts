@@ -5,3 +5,4 @@ export {default as NewReleases} from './NewReleases';
 export {default as Banner} from './Banner';
 export {default as MostViewed} from './MostViewed';
 export {default as FreeComic} from './FreeComic';
+export {default as MobileMenu} from './MobileMenu';

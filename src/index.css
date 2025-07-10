@@ -10,8 +10,8 @@
   --background: #fefefe;
   --foreground: #f7f7f7;
   --main: #444;
-  --muted: #777;
-  --line: #999;
+  --muted: #999;
+  --line: #ddd;
 }
 
 
@@ -90,8 +90,8 @@ button,
   margin-top: 2em;
 }
 
-.hero{
-  background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url("./hero.jpg");
+.auth{
+  background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url("./auth.svg");
   background-position: center;
   background-size: cover;
 }
