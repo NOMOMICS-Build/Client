@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import {
   Categories,
+  Collections,
   Genre,
   Home,
   Library,
@@ -13,7 +14,7 @@ import Ecomics from "./pages/main/Ecomics";
 import { Toaster } from "sonner";
 import { useAuth } from "./hooks";
 import { useEffect } from "react";
-import { Create } from "./pages/main/Creator";
+import { Create, Playlist, Single } from "./pages/main/Creator";
 
 const App = () => {
   const { getUser } = useAuth();
@@ -40,9 +41,12 @@ const App = () => {
         <Route path="/ecomics" element={<Ecomics />} />
         <Route path="/reel" element={<ReelFlow />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/collections" element={<Collections />} />
 
         <Route path="/creator">
           <Route path="create" element={<Create />} />
+          <Route path="create/single" element={<Single />} />
+          <Route path="create/playlist" element={<Playlist />} />
         </Route>
       </Routes>
     </>

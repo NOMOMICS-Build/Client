@@ -146,7 +146,7 @@ const DropDown = ({ toggleDropDown }: { toggleDropDown: () => void }) => {
             onClick={toggleDropDown}
             className="hover:bg-foreground rounded-lg"
           >
-            <Link to="/profile" className="text-sm flex items-center gap-2 p-2">
+            <Link to="/creator/create" className="text-sm flex items-center gap-2 p-2">
               {" "}
               <Plus size={16} /> Create
             </Link>

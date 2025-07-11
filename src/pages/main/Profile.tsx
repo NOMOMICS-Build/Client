@@ -1,5 +1,4 @@
 import {
-  Breadcrumb,
   ButtonWithLoader,
   InputWithIcon,
   SelectWithIcon,
@@ -57,11 +56,9 @@ const Profile = () => {
   return (
     <>
       <MainLayout>
-        <div className="main my-10">
-          <Breadcrumb title="Profile" link="/profile" />
-        </div>
+       
 
-        <div className="layout p-6 bg-white rounded-2xl border border-line space-y-4">
+        <div className="layout p-6 bg-white rounded-2xl border border-line space-y-4 my-10">
           <div className="flex items-center gap-4 flex-col md:flex-row">
             <div className="h-24 w-24 rounded-full overflow-hidden">
               <img

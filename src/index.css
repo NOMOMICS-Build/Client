@@ -34,7 +34,7 @@
 }
 
 html {
-  @apply bg-background text-main font-open scroll-smooth;
+  @apply bg-background text-main font-sans scroll-smooth;
 }
 
 .main {
