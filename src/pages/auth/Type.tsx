@@ -31,12 +31,12 @@ const Type = () => {
           <div
             key={type.label}
             className={`flex cursor-pointer items-center justify-between gap-6 border border-line rounded-2xl p-4 ${
-              selectedType === type.label ? "bg-foreground" : ""
+              selectedType === type.label ? "bg-foreground ring-primary/30 border-secondary ring-4" : ""
             }`}
             onClick={() => handleSelectType(type.label)}
           >
             <div className="space-y-1">
-              <h2 className="text-md font-medium">{type.label}</h2>
+              <h2 className="text-md font-medium capitalize">{type.label}</h2>
               <p className="text-xs md:text-sm text-muted">
                 {type.description}
               </p>

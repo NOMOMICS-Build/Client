@@ -24,3 +24,25 @@ interface SelectWithIconProps
     value: string;
   }[];
 }
+
+interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  role: "reader" | "creator";
+  username: string;
+  avatar?: string;
+  gender?: string;
+  phone?: string;
+  address?: string;
+  earnings: number;
+  totalComics: number;
+  savedComics: string[];
+  purchasedComics: string[];
+  isVerified: boolean;
+  preferences: {
+    sendPromotionalEmails: boolean;
+  };
+  createdAt: string;
+  updatedAt: string;
+}

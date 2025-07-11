@@ -1,11 +1,13 @@
-import { navLinks } from "@/constants/data";
+import { navLinks, navLinksCreator } from "@/constants/data";
 import { useMenuStore } from "@/store";
 import { Link, NavLink } from "react-router-dom";
 import { ButtonWithLoader } from "../ui";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
+import { useAuth } from "@/hooks";
 
 const MobileMenu = () => {
+  const { user } = useAuth();
   const { isMenuOpen, setIsMenuOpen } = useMenuStore();
   useEffect(() => {
     if (isMenuOpen) {
@@ -18,16 +20,17 @@ const MobileMenu = () => {
       document.body.style.overflow = "auto";
     };
   }, [isMenuOpen]);
-  const user = false;
+
+  const menuLinks = user?.role === "creator" ? navLinksCreator : navLinks;
   return (
     <motion.div
-    initial={{ opacity: 0, y: "100%" }}
+    initial={{ opacity: 0, y: "-100%" }}
     animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: "100%" }}
+    exit={{ opacity: 0, y: "-100%" }}
     // transition={{ duration: 0.3 }}
     className="fixed md:hidden min-h-[calc(100dvh-70px)] w-full top-[70px] left-0 bg-secondary/90 backdrop-blur-sm z-50 flex flex-col justify-between">
       <ul className="main w-full mt-4 space-y-2">
-        {navLinks.map((link) => (
+        {menuLinks.map((link) => (
           <li key={link.href} className=" block">
             <NavLink
               to={link.href}
@@ -64,11 +67,11 @@ const MobileMenu = () => {
 
         {user && (
           <div>
-            <div>GJ</div>
             <div>
               <ButtonWithLoader
                 initialText="Logout"
                 loadingText="Logging out..."
+                className="w-full bg-red-500 h-11 rounded-lg text-white"
               />
             </div>
           </div>

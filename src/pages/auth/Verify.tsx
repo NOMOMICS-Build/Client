@@ -1,23 +1,26 @@
 import { ButtonWithLoader } from "@/components/ui";
+import { useAuth } from "@/hooks";
 import AuthLayout from "@/layouts/AuthLayout";
 import { useState, useRef } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const Verify = () => {
+  const [searchParams] = useSearchParams();
+  const email = searchParams.get("email");
   const [code, setCode] = useState(["", "", "", ""]);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
+  const { verifyEmail, isLoading } = useAuth();
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const value = e.target.value;
-    if (!/^\d*$/.test(value)) return; // Only allow numbers
+    if (!/^\d*$/.test(value)) return; 
 
     const newCode = [...code];
-    newCode[index] = value.slice(-1); // Ensure only 1 digit
+    newCode[index] = value.slice(-1); 
     setCode(newCode);
 
-    // Move to next input
     if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
@@ -43,7 +46,7 @@ const Verify = () => {
     const paste = e.clipboardData.getData("text").slice(0, 6);
     const newCode = paste.split("");
     setCode((prev) => prev.map((_, i) => newCode[i] ?? ""));
-    // Focus the last filled field
+
     const lastIndex = Math.min(paste.length, 5);
     inputRefs.current[lastIndex]?.focus();
   };
@@ -52,13 +55,13 @@ const Verify = () => {
     e.preventDefault();
     const joinedCode = code.join("");
     console.log("Verification Code:", joinedCode);
-    //TODO: Call your verification API here
+    verifyEmail(joinedCode);
   };
 
   return (
     <AuthLayout
       title="Verification Code"
-      description="Enter the 6-digit code sent to your email to continue"
+      description={`Enter the 4-digit code sent to ${email} to continue`}
     >
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="flex justify-center items-center gap-4">
@@ -86,6 +89,7 @@ const Verify = () => {
           className="w-full btn-primary h-11 rounded-full"
           initialText="Verify"
           loadingText="Verifying..."
+          loading={isLoading}
         />
 
         <div className="text-center">

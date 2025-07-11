@@ -1,15 +1,34 @@
-import { navLinks } from "@/constants/data";
+import { navLinks, navLinksCreator } from "@/constants/data";
 import { useMenuStore } from "@/store";
-import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  Coins,
+  Menu,
+  Plus,
+  Sparkle,
+  UserRound,
+  X,
+} from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import MobileMenu from "./MobileMenu";
 import { AnimatePresence } from "framer-motion";
+import { ButtonWithLoader } from "../ui";
+import { useState } from "react";
+import { useAuth } from "@/hooks";
 
 const Header = () => {
+  const { user } = useAuth();
   const { isMenuOpen, setIsMenuOpen } = useMenuStore();
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  const toggleDropDown = () => {
+    setIsDropDownOpen((prev) => !prev);
+  };
+
+  const menuLinks = user?.role === "creator" ? navLinksCreator : navLinks;
   return (
     <>
       <header className="bg-secondary/90 backdrop-blur-sm sticky top-0 z-50">
@@ -18,11 +37,15 @@ const Header = () => {
             <img src="/logo.svg" alt="logo" width={150} height={150} />
           </a>
           <ul className="hidden md:flex items-center justify-center gap-4">
-            {navLinks.map((link) => (
+            {menuLinks.map((link) => (
               <li key={link.href}>
                 <NavLink
                   to={link.href}
-                  className={({isActive}) => isActive ? "text-white text-nowrap border-b-2 border-primary transition-all duration-300" : "text-white text-nowrap border-b-2 border-transparent hover:border-primary transition-all duration-300"}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "text-white text-nowrap border-b-2 border-primary transition-all duration-300"
+                      : "text-white text-nowrap border-b-2 border-transparent hover:border-primary transition-all duration-300"
+                  }
                 >
                   {link.label}
                 </NavLink>
@@ -30,11 +53,19 @@ const Header = () => {
             ))}
           </ul>
 
-          <div className="flex items-center justify-end gap-4">
-            <UserControl isMenuOpen={isMenuOpen} />
+          <div className="flex items-center justify-end gap-4 relative">
+            <UserControl
+              isMenuOpen={isMenuOpen}
+              toggleDropDown={toggleDropDown}
+            />
+            {isDropDownOpen && <DropDown toggleDropDown={toggleDropDown} />}
 
             <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
-             {isMenuOpen ? <X className="text-white" /> : <Menu className="text-white" />}
+              {isMenuOpen ? (
+                <X className="text-white" />
+              ) : (
+                <Menu className="text-white" />
+              )}
             </div>
           </div>
         </nav>
@@ -47,14 +78,23 @@ const Header = () => {
 
 export default Header;
 
-const UserControl = ({ isMenuOpen }: { isMenuOpen: boolean }) => {
-  const user = false;
+const UserControl = ({
+  isMenuOpen,
+  toggleDropDown,
+}: {
+  isMenuOpen: boolean;
+  toggleDropDown: () => void;
+}) => {
+  const { user } = useAuth();
   return (
     <>
       {user && (
-        <div className="flex items-center gap-2">
-          <div className="center h-12 w-12 bg-primary rounded-full text-main font-bold text-lg">
-            GJ
+        <div
+          className="flex items-center gap-2 cursor-pointer"
+          onClick={toggleDropDown}
+        >
+          <div className="center h-12 w-12 bg-primary rounded-full text-black/80 font-bold text-lg">
+            {user.name.charAt(0)}
           </div>
           <ChevronDown className="text-white hidden md:block" />
         </div>
@@ -79,5 +119,58 @@ const UserControl = ({ isMenuOpen }: { isMenuOpen: boolean }) => {
         </div>
       )}
     </>
+  );
+};
+
+const DropDown = ({ toggleDropDown }: { toggleDropDown: () => void }) => {
+  const { user, logout, isLoading } = useAuth();
+  return (
+    <div
+      className={`absolute top-full right-0 w-48 bg-white rounded-lg p-2 space-y-4 z-50`}
+    >
+      <div className="bg-foreground rounded-lg p-2 space-y-1">
+        <p className="text-sm font-medium">{user?.name}</p>
+        <p className="text-xs text-muted flex items-center gap-1 capitalize">
+          <Sparkle size={16} className="text-primary" /> {user?.role}
+        </p>
+      </div>
+      <ul className="">
+        <li onClick={toggleDropDown} className="hover:bg-foreground rounded-lg">
+          <Link to="/profile" className="text-sm flex items-center gap-2 p-2">
+            {" "}
+            <UserRound size={16} /> Profile
+          </Link>
+        </li>
+        {user?.role === "creator" && (
+          <li
+            onClick={toggleDropDown}
+            className="hover:bg-foreground rounded-lg"
+          >
+            <Link to="/profile" className="text-sm flex items-center gap-2 p-2">
+              {" "}
+              <Plus size={16} /> Create
+            </Link>
+          </li>
+        )}
+        {user?.role === "reader" && (
+          <li
+            onClick={toggleDropDown}
+            className="hover:bg-foreground rounded-lg"
+          >
+            <Link to="/token" className="text-sm flex items-center gap-2 p-2">
+              {" "}
+              <Coins size={16} /> Purchase Token
+            </Link>
+          </li>
+        )}
+      </ul>
+      <ButtonWithLoader
+        initialText="Logout"
+        loadingText="Logging out..."
+        className="w-full bg-red-500 h-11 rounded-lg text-white"
+        onClick={logout}
+        loading={isLoading}
+      />
+    </div>
   );
 };
