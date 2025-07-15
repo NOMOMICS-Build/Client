@@ -6,6 +6,7 @@ import {
   Home,
   Library,
   Marketplace,
+  Preview,
   Profile,
 } from "./pages/main";
 import { Login, Register, Type, Verify } from "./pages/auth";
@@ -42,6 +43,7 @@ const App = () => {
         <Route path="/reel" element={<ReelFlow />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/collections" element={<Collections />} />
+        <Route path="/preview/:id" element={<Preview />} />
 
         <Route path="/creator">
           <Route path="create" element={<Create />} />

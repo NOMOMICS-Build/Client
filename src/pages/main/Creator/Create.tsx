@@ -37,7 +37,7 @@ const Create = () => {
             {comicTypes.map((type) => (
               <div
                 key={type.label}
-                className={`flex cursor-pointer items-center justify-between gap-6 border border-line rounded-2xl p-4 ${
+                className={`flex cursor-pointer items-center justify-between gap-6 border border-line rounded-xl p-4 ${
                   selectedType === type.href
                     ? "bg-secondary/10 ring-secondary border-transparent group ring-2"
                     : ""

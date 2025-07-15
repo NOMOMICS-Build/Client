@@ -1,10 +1,7 @@
-import {
-  ButtonWithLoader,
-  InputWithIcon,
-} from "@/components/ui";
+import { ButtonWithLoader, ComicCard, InputWithIcon } from "@/components/ui";
 import { comicCategories } from "@/constants/data";
 import { MainLayout } from "@/layouts";
-import { BookA, CloudUpload } from "lucide-react";
+import { BookA, CloudUpload, Loader } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
@@ -14,8 +11,11 @@ import {
   type SingleComicSchema,
 } from "@/schemas/singleComic";
 import MultiSelect from "@/components/ui/MultiSelect";
+import { useCreateComic } from "@/hooks";
 
 const Single = () => {
+  const { createSingleComic, loading, singleComics, singleComicsLoading } =
+    useCreateComic();
   const [file, setFile] = useState<File | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
 
@@ -30,6 +30,8 @@ const Single = () => {
       }
     }
   };
+
+ 
 
   const toMB = (bytes: number) => {
     return (bytes / 1024 / 1024).toFixed(2);
@@ -48,15 +50,13 @@ const Single = () => {
       toast.error("Please upload a file");
       return;
     }
+
     if (categories.length === 0) {
       toast.error("Please add at least one category");
       return;
     }
 
-    const pdf = new FormData();
-    pdf.append("file", file);
-    console.log(data, pdf);
-    toast.success("Comic created successfully");
+    createSingleComic(data, file, categories);
   };
 
   return (
@@ -71,20 +71,20 @@ const Single = () => {
         <div className="grid md:grid-cols-2 grid-cols-1 gap-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>
-              <p className="text-sm text-muted font-medium mb-2">File Upload</p>
+              <p className="text-sm text-muted font-medium mb-2">PDF File</p>
               <label htmlFor="file">
                 <input
                   type="file"
                   name="file"
                   id="file"
                   className="hidden"
-                  accept=".pdf,.jpg,.jpeg,.png"
+                  accept=".pdf"
                   onChange={handleFileChange}
                 />
-                <div className="center flex-col gap-4 border border-dashed border-line rounded-2xl p-4 min-h-[170px] bg-foreground">
+                <div className="center flex-col gap-2 border border-dashed border-line rounded-2xl bg-foreground p-4 min-h-[150px]">
                   <CloudUpload size={24} className="text-muted" />
                   {!file ? (
-                    <p className="text-muted text-sm">
+                    <p className="text-muted text-xs text-center">
                       Click or drag and drop PDF file to this area to upload
                     </p>
                   ) : (
@@ -97,6 +97,8 @@ const Single = () => {
               </label>
             </div>
 
+            
+
             <InputWithIcon
               type="text"
               label="Comic Title"
@@ -106,13 +108,13 @@ const Single = () => {
               error={errors.title?.message}
             />
 
-              <MultiSelect
+            <MultiSelect
               label="Add Categories"
               options={comicCategories}
               selected={categories}
               onChange={setCategories}
             />
-           
+
             <div className="space-y-1">
               <label
                 htmlFor="description"
@@ -134,9 +136,8 @@ const Single = () => {
               )}
             </div>
 
-          
-
             <ButtonWithLoader
+              loading={loading}
               initialText="Upload"
               loadingText="Uploading..."
               type="submit"
@@ -146,9 +147,25 @@ const Single = () => {
           <div className="border border-line p-4 rounded-2xl">
             <h3 className="text-lg font-semibold">Recent Uploads</h3>
 
-            <div className="h-[200px] center bg-foreground rounded-xl text-muted mt-2">
-              <p>No recent uploads</p>
-            </div>
+            {singleComics.length === 0 && (
+              <div className="h-[200px] center bg-foreground rounded-xl text-muted mt-2">
+                <p>No recent uploads</p>
+              </div>
+            )}
+
+            {singleComicsLoading && (
+              <div className="h-[200px] center bg-foreground rounded-xl text-muted mt-2">
+                <Loader className="animate-spin" size={24} />
+              </div>
+            )}
+
+            {singleComics.length > 0 && (
+              <div className="grid grid-cols-2 gap-4 mt-4">
+                {singleComics.slice(0, 4).map((comic) => (
+                  <ComicCard key={comic.id} comic={comic} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

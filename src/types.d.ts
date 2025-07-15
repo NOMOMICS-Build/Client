@@ -46,3 +46,25 @@ interface IUser {
   createdAt: string;
   updatedAt: string;
 }
+
+interface CommentType {
+  id: string;
+  name: string;
+  comment: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface SingleComicType {
+  id: string;
+  title: string;
+  description: string;
+  coverImage: string;
+  pdf: string;
+  categories: string[];
+  creator: IUser;
+  comments: CommentType[];
+  averageRating: number;
+  createdAt: string;
+  updatedAt: string;
+}

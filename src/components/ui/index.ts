@@ -8,3 +8,4 @@ export {default as Modal} from "./Modal";
 export {default as Breadcrumb} from "./Breadcrumb";
 export {default as Search} from "./Search";
 export {default as Void} from './Void';
+export {default as PDFViewer} from './PDFViewer';
