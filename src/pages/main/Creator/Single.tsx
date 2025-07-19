@@ -68,6 +68,8 @@ const Single = () => {
           </h1>
         </div>
 
+
+
         <div className="grid md:grid-cols-2 grid-cols-1 gap-10">
           <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <div>

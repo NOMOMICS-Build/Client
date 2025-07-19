@@ -1,8 +1,10 @@
 import api from "@/config/api";
+import { BUCKET, storage } from "@/config/appwrite";
 import onError from "@/helpers/axiosError";
 import type { SingleComicSchema } from "@/schemas/singleComic";
 import { useComicsStore } from "@/store";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { ID } from "appwrite";
 import type { AxiosError } from "axios";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -23,7 +25,6 @@ const useCreateComic = () => {
   ) => {
     setLoading(true);
     try {
-      // Upload PDF only
       const formDataPdf = new FormData();
       formDataPdf.append("file", pdf);
       formDataPdf.append("upload_preset", upload_preset);
@@ -33,17 +34,20 @@ const useCreateComic = () => {
         formDataPdf
       );
 
-      const pdfUrl = uploadPdf.data.secure_url;
+      // const pdfUrl = uploadPdf.data.secure_url;
       const publicId = uploadPdf.data.public_id;
 
-      // Generate cover image from first page of PDF
       const coverImageUrl = `https://res.cloudinary.com/${cloud_name}/image/upload/pg_1/w_600,f_auto/${publicId}.jpg`;
-      console.log(coverImageUrl);
+     
+      const fileRes = await storage.createFile(BUCKET, ID.unique(), pdf);
+      const fileId = fileRes.$id;
+      const pdfView = storage.getFileView(BUCKET, fileId);
 
       const comicData = {
         title: data.title,
         description: data.description,
-        pdf: pdfUrl,
+        pdf: pdfView,
+        pdfId: fileId,
         coverImage: coverImageUrl,
         categories: categories,
       };

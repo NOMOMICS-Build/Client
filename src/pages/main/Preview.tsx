@@ -13,7 +13,7 @@ const Preview = () => {
         <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
             <div className="col-span-1"></div>
             <div className="col-span-2">
-                    <PDFViewer pdfFile={comic.pdf} />
+                    <PDFViewer fileUrl={comic.pdf} />
             </div>
         </div>
     </MainLayout>

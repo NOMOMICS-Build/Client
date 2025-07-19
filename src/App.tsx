@@ -2,12 +2,14 @@ import { Routes, Route } from "react-router-dom";
 import {
   Categories,
   Collections,
+  Episode,
   Genre,
   Home,
   Library,
   Marketplace,
   Preview,
   Profile,
+  Synopsis,
 } from "./pages/main";
 import { Login, Register, Type, Verify } from "./pages/auth";
 import ReelFlow from "./pages/main/ReelFlow";
@@ -44,6 +46,8 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/collections" element={<Collections />} />
         <Route path="/preview/:id" element={<Preview />} />
+        <Route path="/synopsis/:id" element={<Synopsis />} />
+        <Route path="/episode" element={<Episode/>} />
 
         <Route path="/creator">
           <Route path="create" element={<Create />} />
