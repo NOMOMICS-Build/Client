@@ -30,6 +30,7 @@ const Login = () => {
           type="email"
           label="Email Address"
           placeholder="Enter your email address"
+          autoComplete="username"
           {...register("email")}
           error={errors.email?.message}
         />
@@ -38,6 +39,7 @@ const Login = () => {
           type="password"
           label="Password"
           placeholder="Minimum 8 characters"
+          autoComplete="current-password"
           {...register("password")}
           error={errors.password?.message}
         />
