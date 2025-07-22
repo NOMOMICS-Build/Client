@@ -1,10 +1,12 @@
 import { Breadcrumb, ComicList, Search } from "@/components/ui";
 import { libraryFilter } from "@/constants/data";
+import { useCreateComic } from "@/hooks";
 import { MainLayout } from "@/layouts";
 import clsx from "clsx";
 import { useState } from "react";
 
 const Library = () => {
+  const { comics } = useCreateComic();
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
 
@@ -33,7 +35,7 @@ const Library = () => {
             ))}
         </div>
         <div className="main py-10">
-          <ComicList />
+          <ComicList comics={comics}/>
         </div>
       </MainLayout>
     </>

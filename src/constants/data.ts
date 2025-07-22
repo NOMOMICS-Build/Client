@@ -1,3 +1,5 @@
+import { BookOpen, CreditCard, LayoutDashboard, Plus, UserRoundCog } from "lucide-react";
+
 export const navLinks = [
   { label: "E-Comics", href: "/" },
   { label: "Categories", href: "/categories" },
@@ -8,11 +10,11 @@ export const navLinks = [
 ];
 
 export const navLinksCreator = [
-  { label: "E-Comics", href: "/" },
-  { label: "Create", href: "/creator/create" },
-  { label: "Collections", href: "/collections" },
-  { label: "Market Place", href: "/marketplace" },
-  { label: "Profile", href: "/profile" },
+  { label: "Dashboard", href: "/creator/dashboard", icon: LayoutDashboard },
+  { label: "Upload Comic", href: "/creator/upload/type", icon: Plus },
+  { label: "My Collections", href: "/creator/collections", icon: BookOpen },
+  { label: "Subscriptions", href: "/creator/subscriptions", icon: CreditCard },
+  { label: "Profile", href: "/creator/profile", icon: UserRoundCog },
 ];
 
 export const accountTypes = [

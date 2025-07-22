@@ -50,7 +50,11 @@ const useAuth = () => {
         toast.success(response.data.message);
         setUser(response.data.user);
         setToken(response.data.token);
-        navigate("/");
+        if (response.data.user.role === "creator") {
+          navigate("/creator/dashboard");
+        } else {
+          navigate("/");
+        }
       } else {
         toast.error(response.data.message);
       }
@@ -88,7 +92,11 @@ const useAuth = () => {
         setUser(response.data.user);
         setToken(response.data.token);
         toast.success(response.data.message);
-        navigate("/");
+        if (response.data.user.role === "creator") {
+          navigate("/creator/dashboard");
+        } else {
+          navigate("/");
+        }
       } else {
         toast.error(response.data.message);
       }

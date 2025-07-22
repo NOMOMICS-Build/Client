@@ -1,16 +1,19 @@
 import { Breadcrumb, ComicList, Search } from "@/components/ui";
 import { categoryFilter } from "@/constants/data";
+import { useCreateComic } from "@/hooks";
 import { MainLayout } from "@/layouts";
 import clsx from "clsx";
 import { useState } from "react";
 
 const Categories = () => {
+  const { comics } = useCreateComic();
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState("");
 
   const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
   };
+
 
   return (
     <>
@@ -33,7 +36,7 @@ const Categories = () => {
             ))}
         </div>
         <div className="main py-10">
-          <ComicList />
+          <ComicList comics={comics}/>
         </div>
       </MainLayout>
     </>

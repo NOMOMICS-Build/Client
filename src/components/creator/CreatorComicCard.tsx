@@ -3,16 +3,18 @@ import { useQuery } from "@tanstack/react-query";
 import { Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const ComicCard = ({ comic }: { comic: IComic }) => {
+const CreatorComicCard = ({ comic }: { comic: IComic }) => {
   const {getEpisodesByComicId} = useCreateComic()
   const navigate = useNavigate();
-  const handleNavigate = () => {
-    navigate(`/preview/${comic.id}`);
-  };
+ 
   const {data: episodes} = useQuery({
     queryKey: ["episodes", comic.id],
     queryFn: () => getEpisodesByComicId(comic.id),
   });
+
+  const handleNavigate = () => {
+    navigate(`/creator/synopsis/${comic.id}?ep=${episodes?.length}`);
+  };
   if (!comic) return null;
   return (
     <>
@@ -42,4 +44,4 @@ const ComicCard = ({ comic }: { comic: IComic }) => {
   );
 };
 
-export default ComicCard;
+export default CreatorComicCard;

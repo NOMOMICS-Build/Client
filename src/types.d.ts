@@ -68,3 +68,58 @@ interface SingleComicType {
   createdAt: string;
   updatedAt: string;
 }
+
+
+interface INewComicData {
+  title: string,
+  description: string,
+  pdf: File,
+  image: File | null,
+  categories: string[]
+}
+
+interface IComic {
+  id: string;
+  creator: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  title: string;
+  coverImage: string;
+  subscribers: {
+    users: string[];
+    count: number;
+  };
+  isFree: boolean;
+  categories: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface IEpisode {
+  id: string;
+  comicId: string;
+  title: string;
+  episodeNumber: number;
+  description: string;
+  coverImage: string;
+  coverImageId?: string;
+  pdf: string;
+  pdfId: string;
+  likes: {
+    userIds: string[];
+    count: number;
+  };
+  dislikes: {
+    userIds: string[];
+    count: number;
+  };
+  views: {
+    ipAddresses: string[];
+    count: number;
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+

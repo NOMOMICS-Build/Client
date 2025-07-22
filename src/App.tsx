@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import {
   Categories,
-  Collections,
   Episode,
   Genre,
   Home,
@@ -17,7 +16,8 @@ import Ecomics from "./pages/main/Ecomics";
 import { Toaster } from "sonner";
 import { useAuth } from "./hooks";
 import { useEffect } from "react";
-import { Create, Playlist, Single } from "./pages/main/Creator";
+import { Create, Dashboard, Playlist, UploadType, Collections, Subscription, CreatorProfile, PreviewComic, ComicSynopsis } from "./pages/main/Creator";
+import CreatorMiddleware from "./pages/main/Creator/CreatorMiddleware";
 
 const App = () => {
   const { getUser } = useAuth();
@@ -44,15 +44,23 @@ const App = () => {
         <Route path="/ecomics" element={<Ecomics />} />
         <Route path="/reel" element={<ReelFlow />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/collections" element={<Collections />} />
+      
         <Route path="/preview/:id" element={<Preview />} />
         <Route path="/synopsis/:id" element={<Synopsis />} />
         <Route path="/episode" element={<Episode/>} />
 
+        <Route element={<CreatorMiddleware />}>
         <Route path="/creator">
-          <Route path="create" element={<Create />} />
-          <Route path="create/single" element={<Single />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="upload/type" element={<UploadType />} />
+          <Route path="upload" element={<Create />} />
+          <Route path="preview/:id" element={<PreviewComic />} />
+          <Route path="collections" element={<Collections />} />
+          <Route path="subscriptions" element={<Subscription />} />
+          <Route path="profile" element={<CreatorProfile />} />
           <Route path="create/playlist" element={<Playlist />} />
+          <Route path="synopsis/:id" element={<ComicSynopsis />} />
+        </Route>
         </Route>
       </Routes>
     </>

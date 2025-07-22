@@ -40,7 +40,7 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
       )}
 
       {/* Selected Items */}
-      <div className="w-full min-h-[3rem] p-2 rounded-lg border border-line flex flex-wrap gap-2">
+      <div className="w-full min-h-[2.7rem] p-2 rounded-lg border border-line flex flex-wrap gap-2 mt-1">
         {selected.length > 0 ? (
           selected.map((val) => {
             const label = options.find((x) => x.value === val)?.label || val;
@@ -57,21 +57,20 @@ const MultiSelect: React.FC<MultiSelectProps> = ({
             );
           })
         ) : (
-          <p className="text-sm text-muted pt-1 px-2">No items selected</p>
+          <p className="text-sm text-muted px-2 py-1">No items selected</p>
         )}
       </div>
 
       {/* Available Options */}
       <div className="flex flex-wrap gap-2 mt-2">
         {availableOptions.map((opt) => (
-          <button
+          <div
             key={opt.value}
-            type="button"
             onClick={() => handleSelect(opt.value)}
-            className="center py-1 px-3 text-sm rounded-lg border border-line hover:bg-foreground transition"
+            className="center text-xs py-1 px-3 font-medium rounded-lg border border-line hover:bg-foreground transition cursor-pointer"
           >
             {opt.label}
-          </button>
+          </div>
         ))}
       </div>
     </div>

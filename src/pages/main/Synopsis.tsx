@@ -1,4 +1,4 @@
-import { EpisodeCard } from "@/components/main";
+// import { EpisodeCard } from "@/components/main";
 import { MainLayout } from "@/layouts";
 import {
   ArrowLeft,
@@ -67,8 +67,8 @@ const Synopsis = () => {
           </div>
 
           <div className="space-y-4 bg-white p-10 h-full flex flex-col">
-            <EpisodeCard />
-            <EpisodeCard />
+            {/* <EpisodeCard />
+            <EpisodeCard /> */}
 
             <div className="center gap-4 md:mt-auto mt-6">
               <button className="h-10 w-10 center bg-secondary text-white rounded-full">
