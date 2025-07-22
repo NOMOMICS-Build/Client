@@ -34,7 +34,7 @@ const Library = () => {
                 </div>
             ))}
         </div>
-        <div className="main py-10">
+        <div className="main pb-10">
           <ComicList comics={comics}/>
         </div>
       </MainLayout>

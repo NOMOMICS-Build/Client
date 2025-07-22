@@ -18,7 +18,7 @@ const Hero = () => {
                 </p>
 
                 <div className="flex items-center gap-4">
-                    <Link to="/" className="btn btn-primary font-semibold h-12 px-4 rounded-lg flex items-center gap-2">Read me <ChevronRight size={20}/></Link>
+                    <Link to="/synopsis/1" className="btn btn-primary font-semibold h-12 px-4 rounded-lg flex items-center gap-2">Read me <ChevronRight size={20}/></Link>
                     <Link to="/" className="btn bg-white text-main font-semibold h-12 px-4 rounded-lg flex items-center gap-2"><Bookmark size={20}/> Save me</Link>
                 </div>
             </div>

@@ -18,6 +18,7 @@ import { useAuth } from "./hooks";
 import { useEffect } from "react";
 import { Create, Dashboard, Playlist, UploadType, Collections, Subscription, CreatorProfile, PreviewComic, ComicSynopsis } from "./pages/main/Creator";
 import CreatorMiddleware from "./pages/main/Creator/CreatorMiddleware";
+import { ScrollToTop } from "./components/ui";
 
 const App = () => {
   const { getUser } = useAuth();
@@ -28,6 +29,7 @@ const App = () => {
 
   return (
     <>
+    <ScrollToTop />
       <Toaster position="top-center" richColors />
       <Routes>
         <Route path="/" element={<Home />} />

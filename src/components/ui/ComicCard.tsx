@@ -6,13 +6,15 @@ import { useNavigate } from "react-router-dom";
 const ComicCard = ({ comic }: { comic: IComic }) => {
   const {getEpisodesByComicId} = useCreateComic()
   const navigate = useNavigate();
-  const handleNavigate = () => {
-    navigate(`/preview/${comic.id}`);
-  };
+ 
   const {data: episodes} = useQuery({
     queryKey: ["episodes", comic.id],
     queryFn: () => getEpisodesByComicId(comic.id),
   });
+
+  const handleNavigate = () => {
+    navigate(`/synopsis/${comic.id}?ep=${episodes?.length}`);
+  };
   if (!comic) return null;
   return (
     <>
